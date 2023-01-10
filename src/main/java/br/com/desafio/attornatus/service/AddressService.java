@@ -18,6 +18,8 @@ public class AddressService {
     @Autowired
     AddressDAO addressDAO;
 
+    @Autowired
+    PersonDAO personDAO;
     
     public Address findById(Long id) {
 
@@ -26,10 +28,13 @@ public class AddressService {
         return addressDAO.findById(id).orElseThrow();
     }
 
-    public Address create(Address address) {
+    public Address create(Long id, Address address) {
 
         logger.info("Creating one address!");
 
+        var findPerson = personDAO.findById(id).orElseThrow();
+        
+        
         return addressDAO.save(address);
     }
 

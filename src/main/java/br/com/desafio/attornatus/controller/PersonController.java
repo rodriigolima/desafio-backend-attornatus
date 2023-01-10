@@ -47,10 +47,12 @@ public class PersonController {
         return ResponseEntity.noContent().build();
     }
     
-    @GetMapping(value = "/address/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}/address", produces = MediaType.APPLICATION_JSON_VALUE)
     public Address findAddressById(@PathVariable(value = "id") Long id) { return addressService.findById(id); }
     
-    @PostMapping(value = "/address", 
+    @PostMapping(value = "/{id}/address", 
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Address createAddress(@RequestBody Address address) { return addressService.create(address); }
+    public Address createAddress(@PathVariable(value = "id") Long id, @RequestBody Address address) { 
+        return addressService.create(id, address); 
+    }
 }
