@@ -1,18 +1,20 @@
 package br.com.desafio.attornatus.model;
 
 import jakarta.persistence.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "person_address")
+@Table(name = "addresses")
 public class Address implements Serializable {
 
     private static final long serialVersionID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long addressId;
+    private Long id;
     
     private String logradouro;
     
@@ -24,12 +26,21 @@ public class Address implements Serializable {
     @Column(length = 100)
     private String city;
 
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "addresses")
+    @JsonIgnore
+    private List<Person> people;
+
     public Long getAddressId() {
-        return addressId;
+        return id;
     }
 
     public void setAddressId(Long addressId) {
-        this.addressId = addressId;
+        this.id = addressId;
     }
 
     public String getLogradouro() {

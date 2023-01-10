@@ -16,7 +16,7 @@ public class Person implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long personId;
+    private Long id;
     
     @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
@@ -28,23 +28,30 @@ public class Person implements Serializable {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate birthDay;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,
+        cascade = { CascadeType.PERSIST, CascadeType.MERGE  })
     @JoinTable(
             name = "person_address",
-            joinColumns = @JoinColumn(name = "personId"),
-            inverseJoinColumns = @JoinColumn(name = "addressId")
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "address_id")
     )
     private List<Address> addresses;
+
+    public Person(String firstName, String lastName, LocalDate birthDay) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDay = birthDay;
+    }
 
     public Person() {
     }
 
     public Long getPersonId() {
-        return personId;
+        return id;
     }
 
     public void setPersonId(Long personId) {
-        this.personId = personId;
+        this.id = personId;
     }
 
     public String getFirstName() {
