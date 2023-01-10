@@ -3,37 +3,41 @@ package br.com.desafio.attornatus.model;
 import jakarta.persistence.*;
 import net.minidev.json.annotate.JsonIgnore;
 
-import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "addresses")
-public class Address implements Serializable {
-
-    private static final long serialVersionID = 1L;
-
+@Table(name = "enderecos")
+public class Endereco {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(length = 180)
     private String logradouro;
     
     @Column(length = 80)
     private String cep;
     
-    private int number;
+    private int numero;
     
-    @Column(length = 100)
-    private String city;
+    @Column(length = 80)
+    private String cidade;
+    
+    private boolean principal;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
             },
-            mappedBy = "addresses")
+            mappedBy = "enderecos")
     @JsonIgnore
-    private List<Person> people;
+    private Set<Pessoa> pessoas = new HashSet<>();
+
+    public Endereco() {
+    }
 
     public Long getId() {
         return id;
@@ -42,15 +46,7 @@ public class Address implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public Long getAddressId() {
-        return id;
-    }
-
-    public void setAddressId(Long addressId) {
-        this.id = addressId;
-    }
-
+    
     public String getLogradouro() {
         return logradouro;
     }
@@ -67,27 +63,35 @@ public class Address implements Serializable {
         this.cep = cep;
     }
 
-    public int getNumber() {
-        return number;
+    public int getNumero() {
+        return numero;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setNumero(int number) {
+        this.numero = number;
     }
 
-    public String getCity() {
-        return city;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCidade(String city) {
+        this.cidade = city;
     }
 
-    public List<Person> getPeople() {
-        return people;
+    public Set<Pessoa> getPessoas() {
+        return pessoas;
     }
 
-    public void setPeople(List<Person> people) {
-        this.people = people;
+    public void setPessoas(Set<Pessoa> pessoas) {
+        this.pessoas = pessoas;
+    }
+
+    public boolean isPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(boolean principal) {
+        this.principal = principal;
     }
 }
