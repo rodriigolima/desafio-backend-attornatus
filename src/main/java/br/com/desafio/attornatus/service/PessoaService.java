@@ -23,7 +23,7 @@ public class PessoaService {
         return pessoaRepository.findAll();
     }
     
-    public Pessoa findById(Long id) {
+    public Pessoa findById(long id) {
         
         logger.info("Encontrando uma pessoa!");
 
@@ -37,19 +37,19 @@ public class PessoaService {
         return pessoaRepository.save(pessoa);
     }
     
-    public Pessoa update(Pessoa pessoa) {
+    public Pessoa update(long id, Pessoa pessoa) {
         
         logger.info("Atualiza uma Pessoa");
         
-        var atualizaPessoa = pessoaRepository.findById(pessoa.getId()).orElseThrow();
+        var _pessoa = pessoaRepository.findById(id).orElseThrow();
         
-        atualizaPessoa.setNome(pessoa.getNome());
-        atualizaPessoa.setDataNascimento(pessoa.getDataNascimento());
+        _pessoa.setNome(pessoa.getNome());
+        _pessoa.setDataNascimento(pessoa.getDataNascimento());
         
-        return pessoaRepository.save(atualizaPessoa);
+        return pessoaRepository.save(_pessoa);
     }
     
-    public void delete(Long id) {
+    public void delete(long id) {
         
         logger.info("Deletando uma pessoa");
         

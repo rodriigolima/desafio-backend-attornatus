@@ -2,6 +2,7 @@ package br.com.desafio.attornatus.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ public class Pessoa {
     private String nome;
     
     @Column(name = "data_nascimento")
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
     
     @ManyToMany(fetch = FetchType.LAZY,

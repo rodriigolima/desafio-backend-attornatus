@@ -21,33 +21,33 @@ public class EnderecoService {
     @Autowired
     PessoaRepository pessoaRepository;
     
-    public List<Endereco> findById(Long id) {
+    public List<Endereco> findById(long id) {
 
         logger.info("Encontrando um endereco de uma pessoa!");
 
         if(!pessoaRepository.existsById(id)){
             throw new ResourceNotFoundException("Não encontrei pessoa com esse id = " + id);
         }
-        return enderecoRepository.findEnderecosPeloPessoaId(id);
+        return enderecoRepository.findEnderecosByPessoasId(id);
     }
 
-    public Endereco create(Long id, Endereco enderecoReq) {
+    public Endereco create(Long pessoaId, Endereco enderecoRequest) {
 
         logger.info("Criando um endereco!");
         
-        return pessoaRepository.findById(id).map(pessoa -> {
-            long enderecoId = enderecoReq.getId();
+        return pessoaRepository.findById(pessoaId).map(pessoa -> {
+            Long enderecoId = enderecoRequest.getId();
             
-            if(enderecoId != 0L) { 
+            if(enderecoId != null && enderecoId != 0L) { 
                 Endereco _endereco = enderecoRepository.findById(enderecoId)
                         .orElseThrow(() -> new ResourceNotFoundException("Não encontrei endereco com esse id = " + enderecoId));
                 pessoa.addEndereco(_endereco);
                 pessoaRepository.save(pessoa);
                 return _endereco;
             }
-            pessoa.addEndereco(enderecoReq);
-            return enderecoRepository.save(enderecoReq);
-        }).orElseThrow(() -> new ResourceNotFoundException("Não encontrei pessoa com esse id = " + id));
+            pessoa.addEndereco(enderecoRequest);
+            return enderecoRepository.save(enderecoRequest);
+        }).orElseThrow(() -> new ResourceNotFoundException("Não encontrei pessoa com esse id = " + pessoaId));
     }
  
 }

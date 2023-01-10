@@ -1,7 +1,8 @@
 package br.com.desafio.attornatus.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import net.minidev.json.annotate.JsonIgnore;
+
 
 import java.util.HashSet;
 import java.util.Set;

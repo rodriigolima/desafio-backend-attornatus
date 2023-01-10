@@ -32,7 +32,7 @@ public class PessoaController {
     }
     
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Pessoa> findPessoaById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Pessoa> findPessoaById(@PathVariable(value = "id") long id) {
         Pessoa pessoa = pessoaService.findById(id);
         return new ResponseEntity<>(pessoa, HttpStatus.OK);
     } 
@@ -43,30 +43,30 @@ public class PessoaController {
         return new ResponseEntity<>(_pessoa, HttpStatus.CREATED);
     }
     
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Pessoa> updatePessoa(@RequestBody Pessoa pessoa) {
-        Pessoa _pessoa = pessoaService.update(pessoa);
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Pessoa> updatePessoa(@PathVariable(value = "id") long id, @RequestBody Pessoa pessoa) {
+        Pessoa _pessoa = pessoaService.update(id, pessoa);
         return new ResponseEntity<>(_pessoa, HttpStatus.OK);
     }
     
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deletePessoa(@PathVariable(value = "id")Long id) {
+    public ResponseEntity<?> deletePessoa(@PathVariable(value = "id") long id) {
         pessoaService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     
-    @GetMapping(value = "/{pessoaId}/address", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Endereco>> findEnderecoById(@PathVariable(value = "pessoaId") Long id) { 
+    @GetMapping(value = "/{pessoaId}/enderecos", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Endereco>> findEnderecoById(@PathVariable(value = "pessoaId") long id) { 
         List<Endereco> enderecos = enderecoService.findById(id);
         return new ResponseEntity<>(enderecos, HttpStatus.OK);
     }
     
-    @PostMapping(value = "/{personId}/address", 
+    @PostMapping(value = "/{pessoaId}/enderecos", 
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Endereco> createAddress(
-            @PathVariable(value = "personId") Long id,
-            @RequestBody Endereco enderecoReq) { 
-        Endereco endereco = enderecoService.create(id, enderecoReq);
+    public ResponseEntity<Endereco> createEndereco(
+            @PathVariable(value = "pessoaId") Long pessoaId,
+            @RequestBody Endereco enderecoRequest) { 
+        Endereco endereco = enderecoService.create(pessoaId, enderecoRequest);
         return new ResponseEntity<>(endereco, HttpStatus.CREATED); 
     }
 }
