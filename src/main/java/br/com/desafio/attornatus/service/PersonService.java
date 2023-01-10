@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 @Service
 public class PersonService {
 
-    private Logger logger = Logger.getLogger(PersonService.class.getName());
+    private final Logger logger = Logger.getLogger(PersonService.class.getName());
     
     @Autowired
     PersonDAO personDAO;
