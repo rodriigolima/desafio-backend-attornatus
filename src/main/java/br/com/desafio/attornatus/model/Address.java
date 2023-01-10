@@ -35,6 +35,14 @@ public class Address implements Serializable {
     @JsonIgnore
     private List<Person> people;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getAddressId() {
         return id;
     }
@@ -73,5 +81,13 @@ public class Address implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public List<Person> getPeople() {
+        return people;
+    }
+
+    public void setPeople(List<Person> people) {
+        this.people = people;
     }
 }
