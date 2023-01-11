@@ -21,6 +21,7 @@ public class Endereco {
     @Column(length = 80)
     private String cep;
     
+    @Column(nullable = false, length = 6)
     private int numero;
     
     @Column(length = 80)
