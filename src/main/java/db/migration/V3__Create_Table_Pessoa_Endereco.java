@@ -5,7 +5,7 @@ import org.flywaydb.core.api.migration.Context;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
-public class V5__Create_Table_Pessoa_Endereco extends BaseJavaMigration {
+public class V3__Create_Table_Pessoa_Endereco extends BaseJavaMigration {
     public void migrate(Context context) throws Exception {
         new JdbcTemplate(new SingleConnectionDataSource(context.getConnection(), true))
                 .execute("CREATE TABLE pessoa_endereco (\n" +

@@ -31,6 +31,7 @@ public class Pessoa {
             joinColumns = @JoinColumn(name = "pessoa_id"),
             inverseJoinColumns = @JoinColumn(name = "endereco_id")
     )
+    @OrderBy("id ASC")
     private Set<Endereco> enderecos = new HashSet<>();
 
     public Pessoa() {

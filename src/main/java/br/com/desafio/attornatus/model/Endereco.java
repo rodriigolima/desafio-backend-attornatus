@@ -29,7 +29,7 @@ public class Endereco {
     @Column(length = 80)
     private String cidade;
     
-    private Principal principal;
+    private boolean principal;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -91,11 +91,11 @@ public class Endereco {
         this.pessoas = pessoas;
     }
 
-    public Principal getPrincipal() {
+    public boolean isPrincipal() {
         return principal;
     }
 
-    public void setPrincipal(Principal principal) {
+    public void setPrincipal(boolean principal) {
         this.principal = principal;
     }
 }

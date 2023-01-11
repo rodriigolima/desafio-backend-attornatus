@@ -5,7 +5,7 @@ import org.flywaydb.core.api.migration.Context;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 
-public class V3__Create_Table_Endereco extends BaseJavaMigration {
+public class V2__Create_Table_Endereco extends BaseJavaMigration {
 
     public void migrate(Context context) throws Exception {
         new JdbcTemplate(new SingleConnectionDataSource(context.getConnection(), true))
@@ -15,7 +15,7 @@ public class V3__Create_Table_Endereco extends BaseJavaMigration {
                         "    cep varchar(80) NOT NULL,\n" +
                         "    numerO INTEGER NOT NULL,\n" +
                         "    cidade varchar(80) NOT NULL,\n" +
-                        "    principal enum('principal','nao principal') NOT NULL\n" +
+                        "    principal boolean NOT NULL\n" +
                         ");\n");
     }
 }
