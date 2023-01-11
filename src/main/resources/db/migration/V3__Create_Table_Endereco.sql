@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS `enderecos` (
-    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `id` SERIAL,
     `logradouro` varchar(180) NOT NULL,
     `cep` varchar(80) NOT NULL,
-    `numero` bigint(6) NOT NULL,
+    `numero` INTEGER NOT NULL,
     `cidade` varchar(80) NOT NULL,
-    `principal` boolean NOT NULL,
+    `principal` enum('principal','nao principal') NOT NULL,
     PRIMARY KEY(id)
 )
