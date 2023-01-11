@@ -3,12 +3,19 @@ package br.com.desafio.attornatus.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Getter@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "enderecos")
 @JsonPropertyOrder({ "id", "logradouro", "cep", "numero", "cidade", "principal" })
 public class Endereco {
@@ -39,63 +46,5 @@ public class Endereco {
             mappedBy = "enderecos")
     @JsonIgnore
     private Set<Pessoa> pessoas = new HashSet<>();
-
-    public Endereco() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
     
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int number) {
-        this.numero = number;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String city) {
-        this.cidade = city;
-    }
-
-    public Set<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
-    public void setPessoas(Set<Pessoa> pessoas) {
-        this.pessoas = pessoas;
-    }
-
-    public boolean isPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(boolean principal) {
-        this.principal = principal;
-    }
 }
