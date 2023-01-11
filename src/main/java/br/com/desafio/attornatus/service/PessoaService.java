@@ -17,10 +17,13 @@ public class PessoaService {
     @Autowired
     PessoaRepository pessoaRepository;
     
-    public List<Pessoa> findAll() {
+    public List<Pessoa> findAll(String nome) {
         logger.info("Encontrando todas as pessoas!");
-        
-        return pessoaRepository.findAll();
+        logger.info("Encontrando todas as pessoas!");
+        if(nome == null)
+            return pessoaRepository.findAll();
+        else
+            return pessoaRepository.findByNomeContaining(nome);
     }
     
     public Pessoa findById(long id) {

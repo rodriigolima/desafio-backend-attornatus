@@ -1,6 +1,7 @@
 package br.com.desafio.attornatus.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "pessoas")
+@JsonPropertyOrder({ "id", "nome", "data_nascimento" })
 public class Pessoa {
     
     @Id
@@ -19,7 +21,7 @@ public class Pessoa {
     private String nome;
     
     @Column(name = "data_nascimento")
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
     
     @ManyToMany(fetch = FetchType.LAZY,
