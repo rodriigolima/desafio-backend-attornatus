@@ -1,6 +1,7 @@
 package br.com.desafio.attornatus.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 
@@ -9,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "enderecos")
+@JsonPropertyOrder({ "id", "logradouro", "cep", "numero", "cidade", "principal" })
 public class Endereco {
     
     @Id
@@ -27,7 +29,7 @@ public class Endereco {
     @Column(length = 80)
     private String cidade;
     
-    private boolean principal;
+    private Principal principal;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -89,11 +91,11 @@ public class Endereco {
         this.pessoas = pessoas;
     }
 
-    public boolean isPrincipal() {
+    public Principal getPrincipal() {
         return principal;
     }
 
-    public void setPrincipal(boolean principal) {
+    public void setPrincipal(Principal principal) {
         this.principal = principal;
     }
 }
