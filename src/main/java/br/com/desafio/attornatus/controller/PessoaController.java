@@ -26,37 +26,26 @@ public class PessoaController implements Resource<Pessoa>  {
     EnderecoService enderecoService;
 
     @Override
-    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Pessoa> findById(long id) {
         return new ResponseEntity<>(pessoaService.findById(id), OK);
     }
     
     @Override
-    @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Pessoa>> findAll(String name) {
         if(pessoaService.findAll(name).isEmpty()) return new ResponseEntity<>(NO_CONTENT);
         return new ResponseEntity<>(pessoaService.findAll(name), OK);
     }
 
     @Override
-    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Pessoa> create(Pessoa pessoa) {
         return new ResponseEntity<>(pessoaService.create(pessoa), CREATED);
     }
 
     @Override
-    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Pessoa> update(long id, Pessoa pessoa) {
         return new ResponseEntity<>(pessoaService.update(id, pessoa), OK);
     }
-
-    @Override
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> delete(long id) {
-        pessoaService.delete(id);
-        return new ResponseEntity<>(NO_CONTENT);
-    }
-
+    
     // Mapeamento do relacionamento entre pessoa e endereco
     
     @GetMapping(value = "/{pessoaId}/enderecos", produces = APPLICATION_JSON_VALUE)

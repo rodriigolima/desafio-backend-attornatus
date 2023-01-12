@@ -1,5 +1,6 @@
 package br.com.desafio.attornatus.service;
 
+import br.com.desafio.attornatus.expection.ErrorMessage;
 import br.com.desafio.attornatus.model.Pessoa;
 import br.com.desafio.attornatus.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class PessoaService {
     
     public List<Pessoa> findAll(String nome) {
         logger.info("Encontrando todas as pessoas!");
-        logger.info("Encontrando todas as pessoas!");
+     
         if(nome == null)
             return pessoaRepository.findAll();
         else
@@ -52,12 +53,4 @@ public class PessoaService {
         return pessoaRepository.save(_pessoa);
     }
     
-    public void delete(long id) {
-        
-        logger.info("Deletando uma pessoa");
-        
-        var encontraPessoa = pessoaRepository.findById(id).orElseThrow();
-        
-        pessoaRepository.delete(encontraPessoa);
-    }
 }
