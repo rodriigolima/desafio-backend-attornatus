@@ -34,6 +34,7 @@ public class PessoaController implements Resource<Pessoa>  {
     @Override
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Pessoa>> findAll(String name) {
+        if(pessoaService.findAll(name).isEmpty()) return new ResponseEntity<>(NO_CONTENT);
         return new ResponseEntity<>(pessoaService.findAll(name), OK);
     }
 
@@ -59,20 +60,16 @@ public class PessoaController implements Resource<Pessoa>  {
     // Mapeamento do relacionamento entre pessoa e endereco
     
     @GetMapping(value = "/{pessoaId}/enderecos", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Endereco>> findEnderecosByPessoaId(@PathVariable(value = "pessoaId") long id) {
-        List<Endereco> enderecos = enderecoService.findById(id);
-        if(enderecos.isEmpty()){
-            return new ResponseEntity<>(NO_CONTENT);
-        }
-        return new ResponseEntity<>(enderecos, OK);
+    public ResponseEntity<List<Endereco>> findEnderecosByPessoaId(@PathVariable(value = "pessoaId") long id) {;
+        if(enderecoService.findById(id).isEmpty()) return new ResponseEntity<>(NO_CONTENT);
+        return new ResponseEntity<>(enderecoService.findById(id), OK);
     }
 
     @PostMapping(value = "/{pessoaId}/enderecos", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Endereco> createEndereco(
             @PathVariable(value = "pessoaId") Long pessoaId,
             @RequestBody Endereco enderecoRequest) {
-        Endereco endereco = enderecoService.create(pessoaId, enderecoRequest);
-        return new ResponseEntity<>(endereco, CREATED);
+        return new ResponseEntity<>(enderecoService.create(pessoaId, enderecoRequest), CREATED);
     }
 }
 
