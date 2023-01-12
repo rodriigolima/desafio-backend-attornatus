@@ -2,10 +2,7 @@ package br.com.desafio.attornatus.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -16,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "pessoas")
-public class Pessoa {
+public class Pessoa  {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

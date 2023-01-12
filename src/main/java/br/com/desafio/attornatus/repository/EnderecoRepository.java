@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface EnderecoRepository extends JpaRepository<Endereco, Long> {
     List<Endereco> findEnderecosByPessoasId(Long pessoaId);
+    boolean existsByPrincipal(boolean b);
 }

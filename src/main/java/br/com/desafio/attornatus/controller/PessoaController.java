@@ -2,81 +2,77 @@ package br.com.desafio.attornatus.controller;
 
 import br.com.desafio.attornatus.model.Endereco;
 import br.com.desafio.attornatus.model.Pessoa;
-import br.com.desafio.attornatus.repository.PessoaRepository;
+import br.com.desafio.attornatus.resource.Resource;
 import br.com.desafio.attornatus.service.EnderecoService;
 import br.com.desafio.attornatus.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/api")
-public class PessoaController {
+@ControllerAdvice
+@RequestMapping("/api/pessoas")
+public class PessoaController implements Resource<Pessoa>  {
+    
     
     @Autowired
     PessoaService pessoaService;
     
     @Autowired
     EnderecoService enderecoService;
-    
-    @Autowired
-    PessoaRepository pessoaRepository;
-    
-    @GetMapping(value = "/pessoas",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Pessoa>> findAllPessoas(@RequestParam(required = false) String nome) {
-        List<Pessoa> pessoas = pessoaService.findAll(nome);
-        if(pessoas.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(pessoas, HttpStatus.OK);
 
+    @Override
+    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Pessoa> findById(long id) {
+        return new ResponseEntity<>(pessoaService.findById(id), OK);
     }
     
-    @GetMapping(value = "/pessoas/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Pessoa> findPessoaById(@PathVariable(value = "id") long id) {
-        Pessoa pessoa = pessoaService.findById(id);
-        return new ResponseEntity<>(pessoa, HttpStatus.OK);
-    } 
-    
-    @PostMapping(value = "/pessoas", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Pessoa> createPessoa(@RequestBody Pessoa pessoa) {
-        Pessoa _pessoa = pessoaService.create(pessoa);
-        return new ResponseEntity<>(_pessoa, HttpStatus.CREATED);
+    @Override
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Pessoa>> findAll(String name) {
+        return new ResponseEntity<>(pessoaService.findAll(name), OK);
     }
-    
-    @PutMapping(value = "/pessoas/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Pessoa> updatePessoa(@PathVariable(value = "id") long id, @RequestBody Pessoa pessoa) {
-        Pessoa _pessoa = pessoaService.update(id, pessoa);
-        return new ResponseEntity<>(_pessoa, HttpStatus.OK);
+
+    @Override
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Pessoa> create(Pessoa pessoa) {
+        return new ResponseEntity<>(pessoaService.create(pessoa), CREATED);
     }
-    
-    @DeleteMapping(value = "/pessoas/{id}")
-    public ResponseEntity<?> deletePessoa(@PathVariable(value = "id") long id) {
+
+    @Override
+    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Pessoa> update(long id, Pessoa pessoa) {
+        return new ResponseEntity<>(pessoaService.update(id, pessoa), OK);
+    }
+
+    @Override
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> delete(long id) {
         pessoaService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(NO_CONTENT);
     }
+
+    // Mapeamento do relacionamento entre pessoa e endereco
     
-    @GetMapping(value = "/pessoas/{pessoaId}/enderecos", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Endereco>> findEnderecoById(@PathVariable(value = "pessoaId") long id) {
+    @GetMapping(value = "/{pessoaId}/enderecos", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Endereco>> findEnderecosByPessoaId(@PathVariable(value = "pessoaId") long id) {
         List<Endereco> enderecos = enderecoService.findById(id);
         if(enderecos.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(NO_CONTENT);
         }
-        return new ResponseEntity<>(enderecos, HttpStatus.OK);
+        return new ResponseEntity<>(enderecos, OK);
     }
-    
-    @PostMapping(value = "/pessoas/{pessoaId}/enderecos", 
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping(value = "/{pessoaId}/enderecos", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Endereco> createEndereco(
             @PathVariable(value = "pessoaId") Long pessoaId,
-            @RequestBody Endereco enderecoRequest) { 
+            @RequestBody Endereco enderecoRequest) {
         Endereco endereco = enderecoService.create(pessoaId, enderecoRequest);
-        return new ResponseEntity<>(endereco, HttpStatus.CREATED); 
+        return new ResponseEntity<>(endereco, CREATED);
     }
 }
+
