@@ -2,7 +2,8 @@ package br.com.desafio.attornatus.controller;
 
 import br.com.desafio.attornatus.model.Endereco;
 import br.com.desafio.attornatus.model.Pessoa;
-import br.com.desafio.attornatus.resource.Resource;
+import br.com.desafio.attornatus.resource.EnderecoResource;
+import br.com.desafio.attornatus.resource.PessoaResource;
 import br.com.desafio.attornatus.service.EnderecoService;
 import br.com.desafio.attornatus.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.List;
 @RestController
 @ControllerAdvice
 @RequestMapping("/api/pessoas")
-public class PessoaController implements Resource<Pessoa>  {
+public class PessoaController implements PessoaResource<Pessoa>, EnderecoResource<Endereco> {
     
     
     @Autowired
@@ -48,16 +49,14 @@ public class PessoaController implements Resource<Pessoa>  {
     
     // Mapeamento do relacionamento entre pessoa e endereco
     
-    @GetMapping(value = "/{pessoaId}/enderecos", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Endereco>> findEnderecosByPessoaId(@PathVariable(value = "pessoaId") long id) {;
+    @Override
+    public ResponseEntity<List<Endereco>> findEnderecosByPessoaId(long id) {;
         if(enderecoService.findById(id).isEmpty()) return new ResponseEntity<>(NO_CONTENT);
         return new ResponseEntity<>(enderecoService.findById(id), OK);
     }
 
-    @PostMapping(value = "/{pessoaId}/enderecos", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Endereco> createEndereco(
-            @PathVariable(value = "pessoaId") Long pessoaId,
-            @RequestBody Endereco enderecoRequest) {
+    @Override
+    public ResponseEntity<Endereco> createEnderecoByPessoaId(Long pessoaId, Endereco enderecoRequest) {
         return new ResponseEntity<>(enderecoService.create(pessoaId, enderecoRequest), CREATED);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-public interface Resource<T> {
+public interface PessoaResource<T> {
 
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     ResponseEntity<T> findById(@PathVariable(value = "id") long id);
@@ -20,6 +20,7 @@ public interface Resource<T> {
 
     @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     ResponseEntity<T> update(@PathVariable(value = "id") long id,@RequestBody T t);
+ 
     
 }
 
