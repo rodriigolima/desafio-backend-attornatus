@@ -7,15 +7,16 @@ import br.com.desafio.attornatus.resource.PessoaResource;
 import br.com.desafio.attornatus.service.EnderecoService;
 import br.com.desafio.attornatus.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import static org.springframework.http.HttpStatus.*;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.*;
+
 @RestController
-@ControllerAdvice
 @RequestMapping("/api/pessoas")
 public class PessoaController implements PessoaResource<Pessoa>, EnderecoResource<Endereco> {
     

@@ -4,6 +4,7 @@ import br.com.desafio.attornatus.model.Endereco;
 import br.com.desafio.attornatus.repository.EnderecoRepository;
 import br.com.desafio.attornatus.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
+@ComponentScan("br.com.desafio.attornatus")
 public class EnderecoService {
 
     private final Logger logger = Logger.getLogger(PessoaService.class.getName());
@@ -40,7 +42,8 @@ public class EnderecoService {
             
             if(enderecoId != null && enderecoId != 0L) { 
                 Endereco _endereco = enderecoRepository.findById(enderecoId)
-                        .orElseThrow(() -> new ResourceNotFoundException("Não encontrei endereco com esse id = " + enderecoId));
+                        .orElseThrow(() -> new ResourceNotFoundException(
+                                "Não encontrei endereco com esse id = " + enderecoId));
                 pessoa.addEndereco(_endereco);
                 pessoaRepository.save(pessoa);
                 return _endereco;

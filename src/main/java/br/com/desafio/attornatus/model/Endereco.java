@@ -34,7 +34,7 @@ public class Endereco {
     private String cidade;
     
     private boolean principal;
-
+    
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
@@ -43,5 +43,12 @@ public class Endereco {
             mappedBy = "enderecos")
     @JsonIgnore
     private Set<Pessoa> pessoas = new HashSet<>();
-    
+
+    public boolean isPrincipal() {
+        return principal;
+    }
+
+    public void setPrincipal(boolean principal) {
+        this.principal = principal;
+    }
 }

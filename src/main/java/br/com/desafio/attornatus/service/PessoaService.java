@@ -1,9 +1,9 @@
 package br.com.desafio.attornatus.service;
 
-import br.com.desafio.attornatus.expection.ErrorMessage;
 import br.com.desafio.attornatus.model.Pessoa;
 import br.com.desafio.attornatus.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
+@ComponentScan("br.com.desafio.attornatus")
 public class PessoaService {
 
     private final Logger logger = Logger.getLogger(PessoaService.class.getName());

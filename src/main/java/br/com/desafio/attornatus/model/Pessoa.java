@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -23,10 +24,10 @@ public class Pessoa  {
     private String nome;
     
     @Column(name = "data_nascimento")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataNascimento;
     
-    @ManyToMany(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.EAGER,
         cascade = { CascadeType.PERSIST, CascadeType.MERGE  })
     @JoinTable(
             name = "pessoa_endereco",
