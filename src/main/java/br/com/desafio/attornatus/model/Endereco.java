@@ -38,7 +38,8 @@ public class Endereco {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
-                    CascadeType.MERGE
+                    CascadeType.MERGE,
+                    CascadeType.ALL
             },
             mappedBy = "enderecos")
     @JsonIgnore
@@ -50,5 +51,10 @@ public class Endereco {
 
     public void setPrincipal(boolean principal) {
         this.principal = principal;
+    }
+    
+    public void addPessoa(Pessoa pessoa){
+        this.pessoas.add(pessoa);
+        pessoa.getEnderecos().remove(this);
     }
 }

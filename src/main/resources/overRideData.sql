@@ -1,0 +1,1 @@
+UPDATE pessoas SET nome = 'Rodrigo Moreira' WHERE id = 2;

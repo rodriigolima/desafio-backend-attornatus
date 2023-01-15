@@ -32,7 +32,8 @@ public class PessoaService {
         
         logger.info("Encontrando uma pessoa!");
 
-        return pessoaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Não encontrou pessoa com id = " + id));
+        return pessoaRepository.findById(id).orElseThrow(() -> 
+                new ResourceNotFoundException("Não encontrou pessoa com id = " + id));
     }
     
     public Pessoa create(Pessoa pessoa) {
@@ -46,7 +47,8 @@ public class PessoaService {
         
         logger.info("Atualiza uma Pessoa");
         
-        var _pessoa = pessoaRepository.findById(id).orElseThrow();
+        var _pessoa = pessoaRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Não encontrou pessoa com id = " + id));
         
         _pessoa.setNome(pessoa.getNome());
         _pessoa.setDataNascimento(pessoa.getDataNascimento());

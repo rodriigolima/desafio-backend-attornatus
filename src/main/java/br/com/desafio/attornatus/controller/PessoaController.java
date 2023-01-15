@@ -29,6 +29,7 @@ public class PessoaController implements PessoaResource<Pessoa>, EnderecoResourc
 
     @Override
     public ResponseEntity<Pessoa> findById(long id) {
+        
         return new ResponseEntity<>(pessoaService.findById(id), OK);
     }
     

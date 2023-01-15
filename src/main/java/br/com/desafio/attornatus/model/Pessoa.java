@@ -6,13 +6,13 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Getter@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Table(name = "pessoas")
 public class Pessoa  {
     
@@ -24,7 +24,7 @@ public class Pessoa  {
     private String nome;
     
     @Column(name = "data_nascimento")
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
     
     @ManyToMany(fetch = FetchType.EAGER,
