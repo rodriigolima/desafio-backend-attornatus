@@ -1,6 +1,7 @@
 package br.com.desafio.attornatus.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,8 +37,8 @@ public class Pessoa  {
     )
     @OrderBy("id ASC")
     private Set<Endereco> enderecos = new HashSet<>();
-    
 
+    
     public void addEndereco(Endereco endereco) {
         this.enderecos.add(endereco);
         endereco.getPessoas().remove(this);

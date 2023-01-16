@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
-@ComponentScan("br.com.desafio.attornatus")
 public class EnderecoService {
 
     private final Logger logger = Logger.getLogger(PessoaService.class.getName());
@@ -43,7 +42,7 @@ public class EnderecoService {
             if(enderecoId != null && enderecoId != 0L) { 
                 Endereco _endereco = enderecoRepository.findById(enderecoId)
                         .orElseThrow(() -> new ResourceNotFoundException(
-                                "Não encontrei endereco com esse id = " + enderecoId));
+                                "Aki Não encontrei endereco com esse id = " + enderecoId));
                 pessoa.addEndereco(_endereco);
                 pessoaRepository.save(pessoa);
                 return _endereco;

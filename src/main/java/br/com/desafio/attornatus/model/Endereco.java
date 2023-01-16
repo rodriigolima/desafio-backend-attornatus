@@ -44,6 +44,7 @@ public class Endereco {
             mappedBy = "enderecos")
     @JsonIgnore
     private Set<Pessoa> pessoas = new HashSet<>();
+    
 
     public boolean isPrincipal() {
         return principal;
