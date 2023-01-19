@@ -6,6 +6,7 @@ import br.com.desafio.attornatus.resource.EnderecoResource;
 import br.com.desafio.attornatus.resource.PessoaResource;
 import br.com.desafio.attornatus.service.EnderecoService;
 import br.com.desafio.attornatus.service.PessoaService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,16 +16,15 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaController implements PessoaResource<Pessoa>, EnderecoResource<Endereco> {
     
+   
+    private PessoaService pessoaService;
     
-    @Autowired
-    PessoaService pessoaService;
-    
-    @Autowired
-    EnderecoService enderecoService;
+    private EnderecoService enderecoService;
 
     @Override
     public ResponseEntity<Pessoa> findById(long id) {

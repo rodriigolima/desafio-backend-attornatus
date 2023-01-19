@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -30,7 +31,7 @@ public class Pessoa  {
     
     @Column(name = "data_nascimento")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @NotBlank
+    @NotNull
     private LocalDate dataNascimento;
     
     @ManyToMany(fetch = FetchType.EAGER,
