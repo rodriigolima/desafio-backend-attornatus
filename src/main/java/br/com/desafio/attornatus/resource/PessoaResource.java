@@ -1,5 +1,6 @@
 package br.com.desafio.attornatus.resource;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +17,10 @@ public interface PessoaResource<T> {
     ResponseEntity<List<T>> findAll(@RequestParam(required = false) String name);
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    ResponseEntity<T> create(@RequestBody T t);
+    ResponseEntity<T> create(@Valid @RequestBody T t);
 
     @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    ResponseEntity<T> update(@PathVariable(value = "id") long id,@RequestBody T t);
+    ResponseEntity<T> update(@PathVariable(value = "id") long id,@Valid @RequestBody T t);
  
     
 }

@@ -3,6 +3,8 @@ package br.com.desafio.attornatus.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -22,10 +24,13 @@ public class Pessoa  {
     private Long id;
     
     @Column(nullable = false, length = 180)
+    @NotBlank
+    @Size(max=180)
     private String nome;
     
     @Column(name = "data_nascimento")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotBlank
     private LocalDate dataNascimento;
     
     @ManyToMany(fetch = FetchType.EAGER,
