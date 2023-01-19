@@ -26,7 +26,7 @@ public class Pessoa  {
     
     @Column(nullable = false, length = 180)
     @NotBlank
-    @Size(max=180)
+    @Size(min=2, max=180)
     private String nome;
     
     @Column(name = "data_nascimento")
